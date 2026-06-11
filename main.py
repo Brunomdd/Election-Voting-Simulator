@@ -19,7 +19,6 @@ def mostrar(votos):
     for canditado,valor in votos.items():
         print(f"{canditado} - {valor}")
 
-
 def menu(opc):
     c = 0
     for valor in opc:
@@ -37,4 +36,5 @@ def main():
             registrar_voto(votos)
         elif opc == 2:
             mostrar(votos)
+
 main()
