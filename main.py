@@ -6,6 +6,22 @@ def cabecalho(txt):
     print(txt.center(42))
     print(linha())
 
+
+def executar(funcao,msg):
+    while True:
+        try:
+            valor= input(msg)
+            if not valor:
+                print("Erro! não pode deixar vazio!")
+                continue
+            return funcao(valor)
+        except ValueError:
+            print("Erro, digite um valor inteiro!")
+    
+def leia_int(msg):
+    return executar(int,msg)
+
+
 def menu(opc):
     c = 0
     for valor in opc:
@@ -16,7 +32,7 @@ def main():
         cabecalho("VOTING SIMULATOR")
         menu(['Registrar Voto',
               'Ver Resultado',])
-        opc = int(input('Escolha uma opção: '))
-
         
+        opc = leia_int('Escolha uma opção ')
+
 main()
