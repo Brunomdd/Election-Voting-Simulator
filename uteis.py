@@ -19,3 +19,5 @@ def executar(funcao,msg):
     
 def leia_int(msg):
     return executar(int,msg)
+def leia_string(msg):
+    return executar(str,msg)

@@ -1,10 +1,10 @@
-from uteis import linha,leia_int,cabecalho
+from uteis import linha,leia_int,leia_string,cabecalho
 
 def registrar_voto(votos):
     cabecalho("REGISTRAR VOTO")
     quantidade = leia_int("Quantos votos será registrado? ")
     for i in range(quantidade):
-        pessoas = input('Nome da pessoa para a votação:').strip().upper()
+        pessoas = leia_string('Nome da pessoa para a votação:').strip().upper()
         if pessoas in votos:
             votos[pessoas] +=1
         else:
@@ -12,21 +12,23 @@ def registrar_voto(votos):
     return votos
 
 def mostrar(votos):
+    c = 0
     cabecalho("MOSTRAR CANDIDATOS")
     if not votos:
         print("Não há nada para mostrar!")
         return
     for canditado,valor in votos.items():
-        print(f"{canditado} - {valor}")
+        c+=1
+        print(f"{c} - {canditado} - {valor}")
 
 def menu(opc):
     c = 0
     for valor in opc:
-        c +=1
+        c += 1
         print(f'{c} - {valor}')
 
 def main():
-    votos ={}
+    votos = {}
     while True:
         cabecalho("VOTING SIMULATOR")
         menu(['Registrar Voto',
