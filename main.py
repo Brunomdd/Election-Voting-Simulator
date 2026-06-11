@@ -21,6 +21,11 @@ def mostrar(votos):
         c+=1
         print(f"{c} - {canditado} - {valor}")
 
+
+
+
+
+
 def menu(opc):
     c = 0
     for valor in opc:
@@ -38,5 +43,8 @@ def main():
             registrar_voto(votos)
         elif opc == 2:
             mostrar(votos)
+        elif opc == 3:
+            cabecalho("SAINDO DO SISTEMA")
+            break
 
 main()
