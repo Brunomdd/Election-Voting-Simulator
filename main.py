@@ -6,9 +6,11 @@ def registrar_voto(votos):
     for i in range(quantidade):
         pessoas = leia_string('Nome da pessoa para a votação:').strip().upper()
         if pessoas in votos:
+
             votos[pessoas] +=1
         else:
             votos[pessoas] = 1
+    
     return votos
 
 def mostrar(votos):
@@ -25,7 +27,7 @@ def pessoa_mais_votada(votos):
     if not votos:
         print('Nenhum voto foi registrado no momento!')
         return
-    cabecalho("Verificar Candidato mais votado")
+    cabecalho("VERIFICAR CANDIDATO MAIS VOTADO")
     mais_votado = 0
     maior_frequencia = None
     for chave,candidato in votos.items():
@@ -46,7 +48,26 @@ def mostrar_percentual(votos):
     for candidato,votos_recebidos in votos.items():
         percentual = (votos_recebidos/total_votos)* 100
         print(f'{candidato} - {percentual:.2f}%')
-    
+
+
+def ordenar_votados(votos):
+    if not votos:
+        return
+   
+    ordenar = sorted(votos.items(),key=lambda x:x[1],reverse=True)
+    return ordenar
+
+
+def mostrar_ranking(resultado):
+    if not resultado:
+        print('Erro, não há nada para mostrar no ranking de resultados')
+        return
+       
+    i = 0
+    for candidato,valor in resultado:
+        i += 1
+        print(f'{i}°Lugar {candidato} - {valor }')
+   
 
 def main():
     votos = {}
@@ -55,10 +76,13 @@ def main():
         menu(['Registrar Voto',
               'Ver Resultado',
               'Ver o mais votado',
-              'ver percentual de votos'])
+              'ver percentual de votos',
+              'ver vencedores ordenados',
+              ])
         opc = leia_int('Escolha uma opção ')
         if opc == 1:
             registrar_voto(votos)
+            
         elif opc == 2:
             mostrar(votos)
         elif opc == 3:
@@ -66,4 +90,14 @@ def main():
                
         elif opc == 4:
             mostrar_percentual(votos) 
-main()
+        elif opc == 5:
+            resultado = ordenar_votados(votos)
+            mostrar_ranking(resultado)
+        elif opc == 6:
+            cabecalho('Saindo do sistema . . .')
+            break
+        
+
+if __name__ == "__main__":
+    main()
+
