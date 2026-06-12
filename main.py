@@ -21,30 +21,40 @@ def mostrar(votos):
         c+=1
         print(f"{c} - {canditado} - {valor}")
 
-
-
-
-
-
 def menu(opc):
     c = 0
     for valor in opc:
         c += 1
         print(f'{c} - {valor}')
 
+def pessoa_mais_votada(votos):
+    if not votos:
+        print('Nenhum voto foi registrado no momento!')
+        return
+    mais_votado = 0
+    porcentagem = 0
+    maior_frequencia = None
+    for chave,candidato in votos.items():
+        if candidato > mais_votado:
+            mais_votado = candidato
+            maior_frequencia = chave
+    return {'candidato_maior_voto':maior_frequencia,
+            'QTD_votos':mais_votado
+            }
+
 def main():
     votos = {}
     while True:
         cabecalho("VOTING SIMULATOR")
         menu(['Registrar Voto',
-              'Ver Resultado',])
+              'Ver Resultado',
+              'Ver o mais votado'])
         opc = leia_int('Escolha uma opção ')
         if opc == 1:
             registrar_voto(votos)
         elif opc == 2:
             mostrar(votos)
         elif opc == 3:
-            cabecalho("SAINDO DO SISTEMA")
-            break
-
+            res = pessoa_mais_votada(votos)
+            print(res)       
 main()
