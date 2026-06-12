@@ -90,6 +90,7 @@ def main():
                
         elif opc == 4:
             mostrar_percentual(votos) 
+<<<<<<< HEAD
         elif opc == 5:
             resultado = ordenar_votados(votos)
             mostrar_ranking(resultado)
@@ -97,6 +98,8 @@ def main():
             cabecalho('Saindo do sistema . . .')
             break
         
+=======
+>>>>>>> d9bc0a5bebf43205cf3fde39076c16ed705b2f6d
 
 if __name__ == "__main__":
     main()

@@ -1,10 +1,11 @@
-def linha(linha=42):
-    return '-'*linha
+def linha(linha = 42):
+    return '-' * linha
 
 def cabecalho(txt):
     print(linha())
     print(txt.center(42))
     print(linha())
+
 
 def executar(funcao,msg):
     while True:
@@ -16,14 +17,13 @@ def executar(funcao,msg):
             return funcao(valor)
         except ValueError:
             print("Erro, digite um número válido")
-            
+
+
 def menu(opc):
     c = 0
     for valor in opc:
         c += 1
         print(f'{c} - {valor}')
-
-
 
 def leia_int(msg):
     return executar(int,msg)
