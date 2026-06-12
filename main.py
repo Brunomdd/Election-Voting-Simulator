@@ -66,4 +66,7 @@ def main():
                
         elif opc == 4:
             mostrar_percentual(votos) 
-main()
+
+if __name__ == "__main__":
+    main()
+
