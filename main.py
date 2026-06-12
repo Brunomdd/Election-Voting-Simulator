@@ -1,4 +1,4 @@
-from uteis import linha,leia_int,leia_string,cabecalho
+from uteis import linha,leia_int,leia_string,cabecalho,menu
 
 def registrar_voto(votos):
     cabecalho("REGISTRAR VOTO")
@@ -20,12 +20,6 @@ def mostrar(votos):
     for canditado,valor in votos.items():
         c+=1
         print(f"{c} - {canditado} - {valor}")
-
-def menu(opc):
-    c = 0
-    for valor in opc:
-        c += 1
-        print(f'{c} - {valor}')
 
 def pessoa_mais_votada(votos):
     if not votos:
