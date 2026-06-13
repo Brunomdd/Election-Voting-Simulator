@@ -92,8 +92,12 @@ def main():
         elif opc == 6:
             cabecalho('Sair do sistema . . .')
             break
+<<<<<<< HEAD
             
     
+=======
+
+>>>>>>> fdbc64ac4e92d1e5d8a9daf9ca69ee316e534af0
 if __name__ == "__main__":
     main()
 
