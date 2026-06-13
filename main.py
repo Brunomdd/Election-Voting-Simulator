@@ -34,21 +34,31 @@ def pessoa_mais_votada(votos):
             maior_frequencia = nome
     print(f"candidato com mais voto: {maior_frequencia} - Quantidade: {mais_votado} votos\n")
 
+
 def mostrar_percentual(votos):
-    lista = []
     if not votos:
         print('Não há candidados para mostrar no momemento!')
         return
     cabecalho("Mostrar percentual de candidatos mais votados")
     total_votos = sum(votos.values())
-    
     for candidato,votos_recebidos in votos.items():
         percentual = (votos_recebidos/total_votos)* 100
         print(f'{candidato} - {percentual:.2f}%')
+
     
-    return lista
+def verificar_empate(votos):
+    lista_empate = []
+    if not votos:
+        return
+    maior_valor = max(votos.values())
+    for canditado,votos_recebidos in votos.items():
+        if votos_recebidos == maior_valor:
+            lista_empate.append(canditado)
 
-
+    if len(lista_empate) > 1:
+        print(f'Empate entre {lista_empate[0]} e {lista_empate[1]}')
+   
+    
 def ordenar_votados(votos):
     if not votos:
         return
@@ -56,10 +66,12 @@ def ordenar_votados(votos):
     return ordenar
 
 def mostrar_ranking(resultado):
+    c = 0
     if not resultado:
         print('Erro, não há nada para mostrar no ranking de resultados')
         return
-    for c, (candidato,valor) in resultado(start=1):
+    for candidato,valor in resultado:
+        c +=1
         print(f'{c}°Lugar {candidato} - {valor }')
 
 def main():
@@ -71,6 +83,8 @@ def main():
               'Ver o mais votado',
               'ver percentual de votos',
               'ver vencedores ordenados',
+              'verificar empate',
+              'Sair',
               ])
         opc = leia_int('Escolha uma opção: ')
         if opc == 1:
@@ -87,8 +101,11 @@ def main():
             resultado = ordenar_votados(votos)
             mostrar_ranking(resultado)
         elif opc == 6:
-            cabecalho('Sair do sistema . . .')
+            verificar_empate(votos)
+        elif opc == 7:
+            cabecalho('Saindo do sistema . . .')
             break
+        
 if __name__ == "__main__":
     main()
 
