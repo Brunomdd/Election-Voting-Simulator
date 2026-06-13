@@ -45,9 +45,7 @@ def mostrar_percentual(votos):
     for candidato,votos_recebidos in votos.items():
         percentual = (votos_recebidos/total_votos)* 100
         print(f'{candidato} - {percentual:.2f}%')
-        
-
-
+    
     return lista
 
 
@@ -63,7 +61,6 @@ def mostrar_ranking(resultado):
         return
     for c, (candidato,valor) in resultado(start=1):
         print(f'{c}°Lugar {candidato} - {valor }')
-
 
 def main():
     votos = {}
@@ -92,12 +89,6 @@ def main():
         elif opc == 6:
             cabecalho('Sair do sistema . . .')
             break
-<<<<<<< HEAD
-            
-    
-=======
-
->>>>>>> fdbc64ac4e92d1e5d8a9daf9ca69ee316e534af0
 if __name__ == "__main__":
     main()
 
