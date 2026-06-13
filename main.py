@@ -6,11 +6,9 @@ def registrar_voto(votos):
     for i in range(quantidade):
         pessoas = leia_string('Nome da pessoa para a votação:').strip().upper()
         if pessoas in votos:
-
             votos[pessoas] +=1
         else:
             votos[pessoas] = 1
-    
     return votos
 
 def mostrar(votos):
@@ -30,44 +28,42 @@ def pessoa_mais_votada(votos):
     cabecalho("VERIFICAR CANDIDATO MAIS VOTADO")
     mais_votado = 0
     maior_frequencia = None
-    for chave,candidato in votos.items():
-        if candidato > mais_votado:
-            qtd_votos = candidato
-            maior_frequencia = chave
-    print(f"candidato com mais voto: {maior_frequencia} - Quantidade: {qtd_votos} votos\n")
+    for nome,quantidade in votos.items():
+        if quantidade > mais_votado:
+            mais_votado = quantidade
+            maior_frequencia = nome
+    print(f"candidato com mais voto: {maior_frequencia} - Quantidade: {mais_votado} votos\n")
 
 def mostrar_percentual(votos):
+    lista = []
     if not votos:
         print('Não há candidados para mostrar no momemento!')
         return
     cabecalho("Mostrar percentual de candidatos mais votados")
-    total_votos = 0
-    for candidato,votos_recebidos in votos.items():
-        total_votos += votos_recebidos
+    total_votos = sum(votos.values())
     
     for candidato,votos_recebidos in votos.items():
         percentual = (votos_recebidos/total_votos)* 100
         print(f'{candidato} - {percentual:.2f}%')
+        
+
+
+    return lista
 
 
 def ordenar_votados(votos):
     if not votos:
         return
-   
     ordenar = sorted(votos.items(),key=lambda x:x[1],reverse=True)
     return ordenar
-
 
 def mostrar_ranking(resultado):
     if not resultado:
         print('Erro, não há nada para mostrar no ranking de resultados')
         return
-       
-    i = 0
-    for candidato,valor in resultado:
-        i += 1
-        print(f'{i}°Lugar {candidato} - {valor }')
-   
+    for c, (candidato,valor) in resultado(start=1):
+        print(f'{c}°Lugar {candidato} - {valor }')
+
 
 def main():
     votos = {}
@@ -79,7 +75,7 @@ def main():
               'ver percentual de votos',
               'ver vencedores ordenados',
               ])
-        opc = leia_int('Escolha uma opção ')
+        opc = leia_int('Escolha uma opção: ')
         if opc == 1:
             registrar_voto(votos)
             
@@ -87,20 +83,17 @@ def main():
             mostrar(votos)
         elif opc == 3:
             pessoa_mais_votada(votos)
-               
+
         elif opc == 4:
             mostrar_percentual(votos) 
-<<<<<<< HEAD
         elif opc == 5:
             resultado = ordenar_votados(votos)
             mostrar_ranking(resultado)
         elif opc == 6:
-            cabecalho('Saindo do sistema . . .')
+            cabecalho('Sair do sistema . . .')
             break
-        
-=======
->>>>>>> d9bc0a5bebf43205cf3fde39076c16ed705b2f6d
-
+            
+    
 if __name__ == "__main__":
     main()
 
