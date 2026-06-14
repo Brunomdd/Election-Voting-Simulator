@@ -11,19 +11,24 @@ def registrar_voto(votos):
             votos[pessoas] = 1
     return votos
 
-def mostrar(votos):
-    c = 0
+def tem_votos(votos):
     if not votos:
-        print("Não há nada para mostrar!")
+        print("Não tem votos registrados no momento")
+        return True
+    return False
+
+def mostrar(votos):
+    if tem_votos(votos):
         return
+    c = 0
+
     cabecalho("MOSTRAR CANDIDATOS")
     for canditado,valor in votos.items():
         c+=1
         print(f"{c} - {canditado} - {valor}")
 
 def pessoa_mais_votada(votos):
-    if not votos:
-        print('Nenhum voto foi registrado no momento!')
+    if tem_votos(votos):
         return
     cabecalho("VERIFICAR CANDIDATO MAIS VOTADO")
     mais_votado = 0
@@ -36,8 +41,7 @@ def pessoa_mais_votada(votos):
 
 
 def mostrar_percentual(votos):
-    if not votos:
-        print('Não há candidados para mostrar no momemento!')
+    if tem_votos(votos):
         return
     cabecalho("Mostrar percentual de candidatos mais votados")
     total_votos = sum(votos.values())
@@ -45,31 +49,33 @@ def mostrar_percentual(votos):
         percentual = (votos_recebidos/total_votos)* 100
         print(f'{candidato} - {percentual:.2f}%')
 
-    
 def verificar_empate(votos):
-    lista_empate = []
-    if not votos:
+    if tem_votos(votos):
         return
+    lista_empate = []
+   
     maior_valor = max(votos.values())
     for canditado,votos_recebidos in votos.items():
         if votos_recebidos == maior_valor:
             lista_empate.append(canditado)
 
     if len(lista_empate) > 1:
-        print(f'Empate entre {'|'.join(lista_empate)}')
+        print(f"Empate entre {'|'.join(lista_empate)}")
+    else:
+        print('Não houve empate.')
    
     
 def ordenar_votados(votos):
-    if not votos:
+    if tem_votos(votos):
         return
     ordenar = sorted(votos.items(),key=lambda x:x[1],reverse=True)
     return ordenar
 
 def mostrar_ranking(resultado):
-    c = 0
     if not resultado:
-        print('Erro, não há nada para mostrar no ranking de resultados')
+        print('Não foi possivel mostrar o Ranking.')
         return
+    c = 0
     for candidato,valor in resultado:
         c +=1
         print(f'{c}°Lugar {candidato} - {valor }')
@@ -83,7 +89,7 @@ def main():
               'Ver o mais votado',
               'ver percentual de votos',
               'ver vencedores ordenados',
-              'verificar empate',
+              'verificar empates',
               'Sair',
               ])
         opc = leia_int('Escolha uma opção: ')
