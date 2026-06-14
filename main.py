@@ -1,4 +1,5 @@
 from uteis import linha,leia_int,leia_string,cabecalho,menu
+from arquivo import carregar,salvar
 
 def registrar_voto(votos):
     cabecalho("REGISTRAR VOTO")
@@ -11,14 +12,14 @@ def registrar_voto(votos):
             votos[pessoas] = 1
     return votos
 
-def tem_votos(votos):
+def sem_votos(votos):
     if not votos:
         print("Não tem votos registrados no momento")
         return True
     return False
 
 def mostrar(votos):
-    if tem_votos(votos):
+    if sem_votos(votos):
         return
     c = 0
 
@@ -28,7 +29,7 @@ def mostrar(votos):
         print(f"{c} - {canditado} - {valor}")
 
 def pessoa_mais_votada(votos):
-    if tem_votos(votos):
+    if sem_votos(votos):
         return
     cabecalho("VERIFICAR CANDIDATO MAIS VOTADO")
     mais_votado = 0
@@ -41,7 +42,7 @@ def pessoa_mais_votada(votos):
 
 
 def mostrar_percentual(votos):
-    if tem_votos(votos):
+    if sem_votos(votos):
         return
     cabecalho("Mostrar percentual de candidatos mais votados")
     total_votos = sum(votos.values())
@@ -50,7 +51,7 @@ def mostrar_percentual(votos):
         print(f'{candidato} - {percentual:.2f}%')
 
 def verificar_empate(votos):
-    if tem_votos(votos):
+    if sem_votos(votos):
         return
     lista_empate = []
    
@@ -64,11 +65,10 @@ def verificar_empate(votos):
     else:
         print('Não houve empate.')
    
-    
 def ordenar_votados(votos):
-    if tem_votos(votos):
+    if sem_votos(votos):
         return
-    ordenar = sorted(votos.items(),key=lambda x:x[1],reverse=True)
+    ordenar = sorted(votos.items(),key=lambda x:x[1])
     return ordenar
 
 def mostrar_ranking(resultado):
@@ -81,7 +81,7 @@ def mostrar_ranking(resultado):
         print(f'{c}°Lugar {candidato} - {valor }')
 
 def buscar_candidato(votos):
-    if tem_votos(votos):
+    if sem_votos(votos):
         return
     nome_candidato = leia_string('Digite o nome do candidato:').upper().strip()
     if nome_candidato in votos:
@@ -90,7 +90,7 @@ def buscar_candidato(votos):
         print('candidato não encontrado')
 
 def remover_candidato(votos):
-    if tem_votos(votos):
+    if sem_votos(votos):
         return
     nome_candidato = leia_string('Digite o nome do candidato:').upper().strip()
     if nome_candidato in votos:
@@ -101,7 +101,7 @@ def remover_candidato(votos):
 
 
 def atualizar_votos(votos):
-    if tem_votos(votos):
+    if sem_votos(votos):
         return
     nome_candidato = leia_string('Digite o nome do candidato: ').strip().upper()
     if nome_candidato in votos:
@@ -111,12 +111,8 @@ def atualizar_votos(votos):
     else:
         print('Não foi posivel atualizar')
     
-    
-
-    
-
 def main():
-    votos = {}
+    votos = carregar()
     while True:
         cabecalho("VOTING SIMULATOR")
         menu(['Registrar Voto',
@@ -127,11 +123,13 @@ def main():
               'verificar empates',
               'buscar candidato',
               'Remover um candidato',
+              'Atualizar',
               'Sair',
               ])
         opc = leia_int('Escolha uma opção: ')
         if opc == 1:
             registrar_voto(votos)
+            salvar(votos)
             
         elif opc == 2:
             mostrar(votos)
@@ -149,11 +147,20 @@ def main():
             buscar_candidato(votos)
         elif opc ==8 :
             remover_candidato(votos)
+            salvar(votos)
         elif opc == 9:
             atualizar_votos(votos)
-             
+            salvar(votos)
         elif opc == 10:
+            print("Resetar sistema")
+            dict.clear(votos)
+            salvar(votos)
+
+            
+        elif opc == 11:
             cabecalho('Saindo do sistema . . .')
+            salvar(votos)
+            
             break
 
         
