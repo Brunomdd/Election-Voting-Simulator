@@ -89,6 +89,16 @@ def buscar_candidato(votos):
     else:
         print('candidato não encontrado')
 
+def remover_candidato(votos):
+    if tem_votos(votos):
+        return
+    nome_candidato = leia_string('Digite o nome do candidato:').upper().strip()
+    if nome_candidato in votos:
+        print(f'Candidato {nome_candidato} removido com sucesso!')
+        del votos[nome_candidato]
+    else:
+        print('candidato não encontrado')
+
 def main():
     votos = {}
     while True:
@@ -100,6 +110,7 @@ def main():
               'ver vencedores ordenados',
               'verificar empates',
               'buscar candidato',
+              'Remover um candidato',
               'Sair',
               ])
         opc = leia_int('Escolha uma opção: ')
@@ -121,8 +132,10 @@ def main():
         elif opc == 7:
             buscar_candidato(votos)
         elif opc ==8 :
-            cabecalho('Saindo do sistema . . .')
-            break
+            remover_candidato(votos)
+        elif opc == 9:
+             cabecalho('Saindo do sistema . . .')
+             break
 
         
 if __name__ == "__main__":
