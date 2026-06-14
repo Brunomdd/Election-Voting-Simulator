@@ -56,7 +56,7 @@ def verificar_empate(votos):
             lista_empate.append(canditado)
 
     if len(lista_empate) > 1:
-        print(f'Empate entre {lista_empate[0]} e {lista_empate[1]}')
+        print(f'Empate entre {'|'.join(lista_empate)}')
    
     
 def ordenar_votados(votos):
