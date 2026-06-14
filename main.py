@@ -80,6 +80,15 @@ def mostrar_ranking(resultado):
         c +=1
         print(f'{c}°Lugar {candidato} - {valor }')
 
+def buscar_candidato(votos):
+    if tem_votos(votos):
+        return
+    nome_candidato = leia_string('Digite o nome do candidato:').upper().strip()
+    if nome_candidato in votos:
+        print(f'{nome_candidato} - {votos[nome_candidato]}')
+    else:
+        print('candidato não encontrado')
+
 def main():
     votos = {}
     while True:
@@ -90,6 +99,7 @@ def main():
               'ver percentual de votos',
               'ver vencedores ordenados',
               'verificar empates',
+              'buscar candidato',
               'Sair',
               ])
         opc = leia_int('Escolha uma opção: ')
@@ -109,8 +119,11 @@ def main():
         elif opc == 6:
             verificar_empate(votos)
         elif opc == 7:
+            buscar_candidato(votos)
+        elif opc ==8 :
             cabecalho('Saindo do sistema . . .')
             break
+
         
 if __name__ == "__main__":
     main()
