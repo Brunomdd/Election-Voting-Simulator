@@ -99,6 +99,22 @@ def remover_candidato(votos):
     else:
         print('candidato não encontrado')
 
+
+def atualizar_votos(votos):
+    if tem_votos(votos):
+        return
+    nome_candidato = leia_string('Digite o nome do candidato: ').strip().upper()
+    if nome_candidato in votos:
+        atualiza = leia_int('QTD de votos: ')
+        votos[nome_candidato] = atualiza
+        print('Valor atualizado com sucesso!')
+    else:
+        print('Não foi posivel atualizar')
+    
+    
+
+    
+
 def main():
     votos = {}
     while True:
@@ -134,8 +150,11 @@ def main():
         elif opc ==8 :
             remover_candidato(votos)
         elif opc == 9:
-             cabecalho('Saindo do sistema . . .')
-             break
+            atualizar_votos(votos)
+             
+        elif opc == 10:
+            cabecalho('Saindo do sistema . . .')
+            break
 
         
 if __name__ == "__main__":
