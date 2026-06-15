@@ -52,23 +52,23 @@ def mostrar_percentual(votos):
 
 def verificar_empate(votos):
     if sem_votos(votos):
-        return
-    lista_empate = []
-   
+        return []
+  
     maior_valor = max(votos.values())
-    for canditado,votos_recebidos in votos.items():
-        if votos_recebidos == maior_valor:
-            lista_empate.append(canditado)
+    return [
+        candidato
+        for candidato,votos_recebidos in votos.items()
+        if votos_recebidos == maior_valor
+    ]
+    
 
-    if len(lista_empate) > 1:
-        print(f"Empate entre {'|'.join(lista_empate)}")
-    else:
-        print('Não houve empate.')
+
+   
    
 def ordenar_votados(votos):
     if sem_votos(votos):
         return
-    ordenar = sorted(votos.items(),key=lambda x:x[1])
+    ordenar = sorted(votos.items(),key=lambda x:x[1],reverse=True)
     return ordenar
 
 def mostrar_ranking(resultado):
@@ -124,6 +124,7 @@ def main():
               'buscar candidato',
               'Remover um candidato',
               'Atualizar',
+              'Resetar Sistema',
               'Sair',
               ])
         opc = leia_int('Escolha uma opção: ')
@@ -142,7 +143,11 @@ def main():
             resultado = ordenar_votados(votos)
             mostrar_ranking(resultado)
         elif opc == 6:
-            verificar_empate(votos)
+            empatados = verificar_empate(votos)
+            if len(empatados) >1:
+                print(f'Empate entre {' | '.join(empatados)}')
+            else:
+                print('Não houve empates!')
         elif opc == 7:
             buscar_candidato(votos)
         elif opc ==8 :
