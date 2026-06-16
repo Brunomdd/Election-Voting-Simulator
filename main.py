@@ -24,9 +24,9 @@ def mostrar(votos):
     c = 0
 
     cabecalho("MOSTRAR CANDIDATOS")
-    for canditado,valor in votos.items():
+    for candidato,valor in votos.items():
         c+=1
-        print(f"{c} - {canditado} - {valor}")
+        print(f"{c} - {candidato} - {valor}")
 
 def pessoa_mais_votada(votos):
     if sem_votos(votos):
@@ -157,7 +157,7 @@ def main():
             salvar(votos)
         elif opc == 10:
             print("Resetar sistema")
-            dict.clear(votos)
+            votos.clear()
             salvar(votos)
 
         elif opc == 11:
