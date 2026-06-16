@@ -50,7 +50,7 @@ def mostrar_percentual(votos):
         percentual = (votos_recebidos/total_votos)* 100
         print(f'{candidato} - {percentual:.2f}%')
 
-def verificar_empate(votos):
+def obter_empatados_primeiro_lugar(votos):
     if sem_votos(votos):
         return []
   
@@ -70,7 +70,7 @@ def ordenar_votados(votos):
 
 def mostrar_ranking(resultado):
     if not resultado:
-        print('Não foi possivel mostrar o Ranking.')
+        print("Não foi possivel mostrar o Ranking.")
         return
     c = 0
     for candidato,valor in resultado:
@@ -80,7 +80,7 @@ def mostrar_ranking(resultado):
 def buscar_candidato(votos):
     if sem_votos(votos):
         return
-    nome_candidato = leia_string('Digite o nome do candidato:').upper().strip()
+    nome_candidato = leia_string("Digite o nome do candidato:").upper().strip()
     if nome_candidato in votos:
         print(f'{nome_candidato} - {votos[nome_candidato]}')
     else:
@@ -89,24 +89,26 @@ def buscar_candidato(votos):
 def remover_candidato(votos):
     if sem_votos(votos):
         return
-    nome_candidato = leia_string('Digite o nome do candidato:').upper().strip()
+    nome_candidato = leia_string("Digite o nome do candidato:").upper().strip()
     if nome_candidato in votos:
-        print(f'Candidato {nome_candidato} removido com sucesso!')
+        print(f"Candidato {nome_candidato} removido com sucesso!")
         del votos[nome_candidato]
     else:
         print('candidato não encontrado')
 
-
 def atualizar_votos(votos):
     if sem_votos(votos):
         return
-    nome_candidato = leia_string('Digite o nome do candidato: ').strip().upper()
+    nome_candidato = leia_string("Digite o nome do candidato: ").strip().upper()
     if nome_candidato in votos:
-        atualiza = leia_int('QTD de votos: ')
+        atualiza = leia_int("QTD de votos: ")
+        if atualiza <0:
+            print('Erro! Digite um número inteiro!')
+            return
         votos[nome_candidato] = atualiza
-        print('Valor atualizado com sucesso!')
+        print("Valor atualizado com sucesso!")
     else:
-        print('Não foi posivel atualizar')
+        print("Não foi posivel atualizar")
     
 def main():
     votos = carregar()
@@ -140,7 +142,7 @@ def main():
             resultado = ordenar_votados(votos)
             mostrar_ranking(resultado)
         elif opc == 6:
-            empatados = verificar_empate(votos)
+            empatados = obter_empatados_primeiro_lugar(votos)
             if len(empatados) >1:
                 print(f"Empate entre {' | '.join(empatados)}")
             else:
@@ -161,8 +163,11 @@ def main():
         elif opc == 11:
             cabecalho('Saindo do sistema . . .')
             salvar(votos)
-            
             break
+        else:
+            print('Opção inválida!')
+            
+            
 
 if __name__ == "__main__":
     main()
