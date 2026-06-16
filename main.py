@@ -20,7 +20,7 @@ def sem_votos(votos):
 
 def mostrar(votos):
     if sem_votos(votos):
-        return
+        return 
     c = 0
 
     cabecalho("MOSTRAR CANDIDATOS")
@@ -30,7 +30,7 @@ def mostrar(votos):
 
 def pessoa_mais_votada(votos):
     if sem_votos(votos):
-        return
+        return 
     cabecalho("VERIFICAR CANDIDATO MAIS VOTADO")
     mais_votado = 0
     maior_frequencia = None
@@ -43,7 +43,7 @@ def pessoa_mais_votada(votos):
 
 def mostrar_percentual(votos):
     if sem_votos(votos):
-        return
+        return 
     cabecalho("Mostrar percentual de candidatos mais votados")
     total_votos = sum(votos.values())
     for candidato,votos_recebidos in votos.items():
@@ -62,12 +62,9 @@ def verificar_empate(votos):
     ]
     
 
-
-   
-   
 def ordenar_votados(votos):
     if sem_votos(votos):
-        return
+        return 
     ordenar = sorted(votos.items(),key=lambda x:x[1],reverse=True)
     return ordenar
 
@@ -145,7 +142,7 @@ def main():
         elif opc == 6:
             empatados = verificar_empate(votos)
             if len(empatados) >1:
-                print(f'Empate entre {' | '.join(empatados)}')
+                print(f"Empate entre {' | '.join(empatados)}")
             else:
                 print('Não houve empates!')
         elif opc == 7:
@@ -161,14 +158,12 @@ def main():
             dict.clear(votos)
             salvar(votos)
 
-            
         elif opc == 11:
             cabecalho('Saindo do sistema . . .')
             salvar(votos)
             
             break
 
-        
 if __name__ == "__main__":
     main()
 
