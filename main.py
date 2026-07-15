@@ -10,7 +10,15 @@ def registrar_voto(votos):
             votos[pessoas] +=1
         else:
             votos[pessoas] = 1
-    return votos
+
+def mostrar(votos):
+    if sem_votos(votos):
+        return 
+    c = 0
+    cabecalho("MOSTRAR CANDIDATOS")
+    for candidato,valor in votos.items():
+        c+=1
+        print(f"{c} - {candidato} - {valor}")
 
 def sem_votos(votos):
     if not votos:
@@ -18,15 +26,6 @@ def sem_votos(votos):
         return True
     return False
 
-def mostrar(votos):
-    if sem_votos(votos):
-        return 
-    c = 0
-
-    cabecalho("MOSTRAR CANDIDATOS")
-    for candidato,valor in votos.items():
-        c+=1
-        print(f"{c} - {candidato} - {valor}")
 
 def pessoa_mais_votada(votos):
     if sem_votos(votos):
@@ -40,7 +39,6 @@ def pessoa_mais_votada(votos):
             maior_frequencia = nome
     print(f"candidato com mais voto: {maior_frequencia} - Quantidade: {mais_votado} votos\n")
 
-
 def mostrar_percentual(votos):
     if sem_votos(votos):
         return 
@@ -49,7 +47,7 @@ def mostrar_percentual(votos):
     for candidato,votos_recebidos in votos.items():
         percentual = (votos_recebidos/total_votos)* 100
         print(f'{candidato} - {percentual:.2f}%')
-
+        
 def obter_empatados_primeiro_lugar(votos):
     if sem_votos(votos):
         return []
@@ -60,6 +58,16 @@ def obter_empatados_primeiro_lugar(votos):
         for candidato,votos_recebidos in votos.items()
         if votos_recebidos == maior_valor
     ]
+
+def ver_empate(votos):
+    if sem_votos(votos):
+        return
+    empatados = obter_empatados_primeiro_lugar(votos)
+    if len(empatados) >1:
+        print(f"Empate entre {' | '.join(empatados)}")
+    else:
+        print('Não houve empates!')
+            
     
 
 def ordenar_votados(votos):
@@ -112,6 +120,19 @@ def atualizar_votos(votos):
     
 def main():
     votos = carregar()
+    açoes = {
+        1:lambda:registrar_voto(votos),
+        2:lambda:mostrar(votos),
+        3:lambda:pessoa_mais_votada(votos),
+        4:lambda:mostrar_percentual(votos),
+        5:lambda:mostrar_ranking(ordenar_votados(votos)),
+        6:lambda:ver_empate(votos),
+        7:lambda:buscar_candidato(votos),
+        8:lambda:remover_candidato(votos),
+        9:lambda:atualizar_votos(votos),
+        10:lambda: votos.clear(),
+
+    }
     while True:
         cabecalho("VOTING SIMULATOR")
         menu(['Registrar Voto',
@@ -125,50 +146,58 @@ def main():
               'Atualizar',
               'Resetar Sistema',
               'Sair',
-              ])
+              ])       
         opc = leia_int('Escolha uma opção: ')
-        if opc == 1:
-            registrar_voto(votos)
-            salvar(votos)
-            
-        elif opc == 2:
-            mostrar(votos)
-        elif opc == 3:
-            pessoa_mais_votada(votos)
-
-        elif opc == 4:
-            mostrar_percentual(votos) 
-        elif opc == 5:
-            resultado = ordenar_votados(votos)
-            mostrar_ranking(resultado)
-        elif opc == 6:
-            empatados = obter_empatados_primeiro_lugar(votos)
-            if len(empatados) >1:
-                print(f"Empate entre {' | '.join(empatados)}")
-            else:
-                print('Não houve empates!')
-        elif opc == 7:
-            buscar_candidato(votos)
-        elif opc ==8 :
-            remover_candidato(votos)
-            salvar(votos)
-        elif opc == 9:
-            atualizar_votos(votos)
-            salvar(votos)
-        elif opc == 10:
-            print("Resetar sistema")
-            votos.clear()
-            salvar(votos)
-
-        elif opc == 11:
-            cabecalho('Saindo do sistema . . .')
-            salvar(votos)
+        if opc == 11:
+            print('Saindo do sistema . . .')
             break
+        açao = açoes.get(opc)
+        if açao:
+            açao()
+            salvar(votos)
         else:
-            print('Opção inválida!')
+            print(f'Não foi possivel executar essa ação')
+        #if opc == 1:
+         #   registrar_voto(votos)
+          #  salvar(votos)
             
-            
+        #elif opc == 2:
+            #mostrar(votos)
+       # elif opc == 3:
+         #   pessoa_mais_votada(votos)
 
+        #elif opc == 4:
+            #mostrar_percentual(votos) 
+        #elif opc == 5:
+            #resultado = ordenar_votados(votos)
+            #mostrar_ranking(resultado)
+       # elif opc == 6:
+            #empatados = obter_empatados_primeiro_lugar(votos)
+            #if len(empatados) >1:
+            #    print(f"Empate entre {' | '.join(empatados)}")
+            #else:
+           #     print('Não houve empates!')
+      #  elif opc == 7:
+          #  buscar_candidato(votos)
+       # elif opc ==8 :
+        #    remover_candidato(votos)
+        #    salvar(votos)
+      #  elif opc == 9:
+         #   atualizar_votos(votos)
+         #   salvar(votos)
+        #elif opc == 10:
+          #  print("Resetar sistema")
+          ##  votos.clear()
+          #  salvar(votos)
+
+       # elif opc == 11:
+          #  cabecalho('Saindo do sistema . . .')
+          #  salvar(votos)
+        #    break
+      #  else:
+        #    print('Opção inválida!')
+            
+    
 if __name__ == "__main__":
     main()
 
